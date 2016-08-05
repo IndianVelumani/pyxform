@@ -187,3 +187,6 @@ CHOICES = u"choices"
 COLUMNS = u"columns" #this is for loop statements
 CHOICES_AND_COLUMNS = u"choices and columns"
 CASCADING_CHOICES = u"cascades"
+
+
+NAMESPACES = u'namespaces'
