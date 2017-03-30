@@ -26,6 +26,7 @@ def generate_new_dict():
     json_dict = QuestionTypesReader(path_to_question_types).to_json_dict()
     print_pyobj_to_json(json_dict, 'new_quesiton_type_dict.json')
 
+
 _SELECT_1_TYPE_DICT= {
     "control": {
         "tag": constants.SELECT_ONE_XFORM
@@ -44,256 +45,328 @@ _SELECT_TYPE_DICT= {
     }
 }
 
+_IMAGE_TYPE= {
+    "control": {
+        "tag": "upload",
+        "mediatype": "image/*"
+    }, 
+    "bind": {
+        "type": "binary"
+    }
+}
+
+_VIDEO_TYPE= {
+    "control": {
+        "tag": "upload", 
+        "mediatype": "video/*"
+    }, 
+    "bind": {
+        "type": "binary"
+    }
+}
+
+_AUDIO_TYPE= {
+    "control": {
+        "tag": "upload", 
+        "mediatype": "audio/*"
+    }, 
+    "bind": {
+        "type": "binary"
+    }
+}
+
+_DATE_TYPE= {
+    "control": {
+        "tag": "input"
+    }, 
+    "bind": {
+        "type": "date"
+    }
+}
+
+_DATETIME_TYPE= {
+    "control": {
+        "tag": "input"
+    }, 
+    "bind": {
+        "type": "dateTime"
+    }
+}
+
+_GEOPOINT_TYPE= {
+    "control": {
+        "tag": "input"
+    }, 
+    "bind": {
+        "type": "geopoint"
+    }
+}
+
+_GEOPOINT_TYPE_W_HINT= dict(_GEOPOINT_TYPE, \
+    **{"hint": "GPS coordinates can only be collected when outside."})
+
+_GEOSHAPE_TYPE= {
+    "control": {
+        "tag": "input"
+    }, 
+    "bind": {
+        "type": "geoshape"
+    }
+}
+
+_GEOSHAPE_TYPE_W_HINT= dict(_GEOSHAPE_TYPE, \
+            **{"hint": "GPS coordinates can only be collected when outside."})
+
+_GEOTRACE_TYPE= {
+    "control": {
+        "tag": "input"
+    }, 
+    "bind": {
+        "type": "geotrace"
+    }
+}
+
+_GEOTRACE_TYPE_W_HINT= dict(_GEOTRACE_TYPE, \
+            **{"hint": "GPS coordinates can only be collected when outside."})
+
+_INT_TYPE= {
+    "control": {
+        "tag": "input"
+    }, 
+    "bind": {
+        "type": "int"
+    }
+}
+
+_DECIMAL_TYPE= {
+    "control": {
+        "tag": "input"
+    }, 
+    "bind": {
+        "type": "decimal"
+    }
+}
+
+_STRING_TYPE= {
+    "control": {
+        "tag": "input"
+    }, 
+    "bind": {
+        "type": "string"
+    }
+}
+
+_NOTE_TYPE= {
+    "control": {
+        "tag": "input"
+    }, 
+    "bind": {
+        "readonly": "true()", 
+        "type": "string"
+    }
+}
+
+_TRIGGER_TYPE= {
+    "control": {
+        "tag": "trigger"
+    }, 
+    "bind": {
+        "type": "string"
+    }
+}
+
+_BARCODE_TYPE= {
+    "control": {
+        "tag": "input"
+    }, 
+    "bind": {
+        "type": "barcode"
+    }
+}
+
+_PHONENUMBER_TYPE= {
+    "bind": {
+        "jr:preload": "property", 
+        "type": "string", 
+        "jr:preloadParams": "phonenumber"
+    }
+}
+
+_START_TYPE= {
+    "bind": {
+        "jr:preload": "timestamp", 
+        "type": "dateTime", 
+        "jr:preloadParams": "start"
+    }
+}
+
+_END_TYPE= {
+    "bind": {
+        "jr:preload": "timestamp", 
+        "type": "dateTime", 
+        "jr:preloadParams": "end"
+    }
+}
+
+_SIMSERIAL_TYPE= {
+    "bind": {
+        "jr:preload": "property", 
+        "type": "string", 
+        "jr:preloadParams": "simserial"
+    }
+}
+
+_DEVICEID_TYPE= {
+    "bind": {
+        "jr:preload": "property", 
+        "type": "string", 
+        "jr:preloadParams": "deviceid"
+    }
+}
+
+_SUBSCRIBERID_TYPE= {
+    "bind": {
+        "jr:preload": "property", 
+        "type": "string", 
+        "jr:preloadParams": "subscriberid"
+    }
+}
+
+_TODAY_TYPE= {
+    "bind": {
+        "jr:preload": "date", 
+        "type": "date", 
+        "jr:preloadParams": "today"
+    }
+}
+
+_NONINPUT_STING_TYPE= {
+    "bind": {
+        "type": "string"
+    }
+}
+
 QUESTION_TYPE_DICT = \
 {
-    "q picture": {
-        "control": {
-            "tag": "upload", 
-            "mediatype": "image/*"
-        }, 
-        "bind": {
-            "type": "binary"
-        }
-    }, 
-    "photo": {
-        "control": {
-            "tag": "upload", 
-            "mediatype": "image/*"
-        }, 
-        "bind": {
-            "type": "binary"
-        }
-    }, 
-    "add date time prompt": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "dateTime"
-        }
-    }, 
-    "add audio prompt": {
-        "control": {
-            "tag": "upload", 
-            "mediatype": "audio/*"
-        }, 
-        "bind": {
-            "type": "binary"
-        }
-    }, 
-    "q date time": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "dateTime"
-        }
-    }, 
-    "phonenumber": {
-        "bind": {
-            "jr:preload": "property", 
-            "type": "string", 
-            "jr:preloadParams": "phonenumber"
-        }
-    }, 
-    "get start time": {
-        "bind": {
-            "jr:preload": "timestamp", 
-            "type": "dateTime", 
-            "jr:preloadParams": "start"
-        }
-    }, 
-    "add note prompt": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "readonly": "true()", 
-            "type": "string"
-        }
-    }, 
-    "calculate": {
-        "bind": {
-            "type": "string"
-        }
-    }, 
-    "acknowledge": {
-        "control": {
-            "tag": "trigger"
-        }, 
-        "bind": {
-            "type": "string"
-        }
-    }, 
-    "location": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "geopoint"
-        }
-    }, 
-    "text": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "string"
-        }
-    }, 
-    "simserial": {
-        "bind": {
-            "jr:preload": "property", 
-            "type": "string", 
-            "jr:preloadParams": "simserial"
-        }
-    }, 
-    "string": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "string"
-        }
-    }, 
-    "q string": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "string"
-        }
-    }, 
-    "imei": {
-        "bind": {
-            "jr:preload": "property", 
-            "type": "string", 
-            "jr:preloadParams": "deviceid"
-        }
-    }, 
-    "integer": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "int"
-        }
-    }, 
-    "datetime": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "dateTime"
-        }
-    }, 
-    "q note": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "readonly": "true()", 
-            "type": "string"
-        }
-    }, 
-    "subscriber id": {
-        "bind": {
-            "jr:preload": "property", 
-            "type": "string", 
-            "jr:preloadParams": "subscriberid"
-        }
-    }, 
-    "decimal": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "decimal"
-        }
-    }, 
-    "dateTime": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "dateTime"
-        }
-    }, 
-    "q audio": {
-        "control": {
-            "tag": "upload", 
-            "mediatype": "audio/*"
-        }, 
-        "bind": {
-            "type": "binary"
-        }
-    }, 
-    "q geopoint": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "geopoint"
-        }
-    }, 
-    "q geoshape": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "geoshape"
-        }
-    }, 
-    "q geotrace": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "geotrace"
-        }
-    }, 
-    "q image": {
-        "control": {
-            "tag": "upload", 
-            "mediatype": "image/*"
-        }, 
-        "bind": {
-            "type": "binary"
-        }
-    }, 
-    "get today": {
-        "bind": {
-            "jr:preload": "date", 
-            "type": "date", 
-            "jr:preloadParams": "today"
-        }
-    }, 
-    "video": {
-        "control": {
-            "tag": "upload", 
-            "mediatype": "video/*"
-        }, 
-        "bind": {
-            "type": "binary"
-        }
-    }, 
-    "q acknowledge": {
-        "control": {
-            "tag": "trigger"
-        }, 
-        "bind": {
-            "type": "string"
-        }
-    }, 
-    "add video prompt": {
-        "control": {
-            "tag": "upload", 
-            "mediatype": "video/*"
-        }, 
-        "bind": {
-            "type": "binary"
-        }
-    }, 
+    # FIXME: These seemingly could be condensed to one entry per question type if 'pyxform.aliases.select' were put to use.
+    # Select one.
+    constants.SELECT_ONE:           _SELECT_1_TYPE_DICT,
+    "add select one prompt using":  _SELECT_1_TYPE_DICT, # Already in 'pyxform.aliases.select'.
+    "select one using":             _SELECT_1_TYPE_DICT,
+    "q select1":                    _SELECT_1_TYPE_DICT,
+    
+    # Select multiple.
+    constants.SELECT_ALL_THAT_APPLY:        _SELECT_TYPE_DICT, 
+    "select all that apply":                _SELECT_TYPE_DICT, # Already in 'pyxform.aliases.select'.
+    "select all that apply from":           _SELECT_TYPE_DICT, # Already in 'pyxform.aliases.select'.
+    "add select multiple prompt using":     _SELECT_TYPE_DICT, # Already in 'pyxform.aliases.select'.
+    "select multiple from":                 _SELECT_TYPE_DICT,
+    "q select":                             _SELECT_TYPE_DICT,
+    "select multiple using":                _SELECT_TYPE_DICT,
+    
+    "q picture":            _IMAGE_TYPE,
+    "photo":                _IMAGE_TYPE,
+    "q image":              _IMAGE_TYPE,
+    "add image prompt":     _IMAGE_TYPE,
+    "image":                _IMAGE_TYPE,
+    
+    "add date time prompt":     _DATETIME_TYPE,
+    "q date time":              _DATETIME_TYPE,
+    
+    "video":                _VIDEO_TYPE,
+    "add video prompt":     _VIDEO_TYPE,
+    "q video":              _VIDEO_TYPE,
+    
+    "add audio prompt":     _AUDIO_TYPE,
+    "q audio":              _AUDIO_TYPE,
+    "audio":                _AUDIO_TYPE,
+    
+    "add date prompt":  _DATE_TYPE,
+    "q date":           _DATE_TYPE,
+    "date":             _DATE_TYPE,
+    
+    "datetime":             _DATETIME_TYPE, 
+    "dateTime":             _DATETIME_TYPE, 
+    "add dateTime prompt":  _DATETIME_TYPE, 
+    "q dateTime":           _DATETIME_TYPE, 
+    "date time":            _DATETIME_TYPE, 
+    
+    "q geopoint":           _GEOPOINT_TYPE,
+    "location":             _GEOPOINT_TYPE,
+    "q location":           _GEOPOINT_TYPE,
+    "add location prompt":  _GEOPOINT_TYPE,
+    
+    "geopoint":     _GEOPOINT_TYPE_W_HINT,
+    "gps":          _GEOPOINT_TYPE_W_HINT,
+    
+    "q geotrace":   _GEOTRACE_TYPE,
+    
+    "geotrace":     _GEOTRACE_TYPE_W_HINT,
+    
+    "q geoshape":   _GEOSHAPE_TYPE,
+    
+    "geoshape":     _GEOSHAPE_TYPE_W_HINT,
+
+    "integer":              _INT_TYPE,
+    "q int":                _INT_TYPE,
+    "int":                  _INT_TYPE,
+    "add integer prompt":   _INT_TYPE,
+    
+    "decimal":              _DECIMAL_TYPE,
+    "add decimal prompt":   _DECIMAL_TYPE,
+    "q decimal":            _DECIMAL_TYPE,
+    
+    "text":                 _STRING_TYPE,
+    "string":               _STRING_TYPE,
+    "q string":             _STRING_TYPE,
+    "select one external":  _STRING_TYPE,
+    "add text prompt":      _STRING_TYPE,
+    
+    "add note prompt":  _NOTE_TYPE,
+    "q note":           _NOTE_TYPE,
+    "note":             _NOTE_TYPE,
+
+    "add acknowledge prompt":   _TRIGGER_TYPE,
+    "acknowledge":              _TRIGGER_TYPE,
+    "q acknowledge":            _TRIGGER_TYPE,
+    
+    "add barcode prompt":   _BARCODE_TYPE,
+    "q barcode":            _BARCODE_TYPE,
+    "barcode":              _BARCODE_TYPE,
+
+    "phonenumber":          _PHONENUMBER_TYPE,
+    "get phone number":     _PHONENUMBER_TYPE,
+    
+    "start":            _START_TYPE,
+    "get start time":   _START_TYPE,
+    
+    "get end time":     _END_TYPE,
+    "end time":         _END_TYPE,
+    "end":              _END_TYPE,
+    
+    "get sim id":   _SIMSERIAL_TYPE,
+    "simserial":    _SIMSERIAL_TYPE,
+    "sim id":       _SIMSERIAL_TYPE,
+    
+    "imei":             _DEVICEID_TYPE,
+    "device id":        _DEVICEID_TYPE,
+    "get device id":    _DEVICEID_TYPE,
+    "deviceid":         _DEVICEID_TYPE,
+
+    "subscriber id":        _SUBSCRIBERID_TYPE,
+    "subscriberid":         _SUBSCRIBERID_TYPE,
+    "get subscriber id":    _SUBSCRIBERID_TYPE,
+    
+    "get today":            _TODAY_TYPE,
+    "today":                _TODAY_TYPE,
+    
+    "start time":   _START_TYPE,
+    
+    "calculate":                _NONINPUT_STING_TYPE,
+    "q calculate":              _NONINPUT_STING_TYPE,
+    "add calculate prompt":     _NONINPUT_STING_TYPE, 
+    "hidden":                   _NONINPUT_STING_TYPE,
+    
     "number of days in last month": {
         "control": {
             "tag": "input"
@@ -304,174 +377,9 @@ QUESTION_TYPE_DICT = \
         }, 
         "hint": "Enter a number 0-31."
     }, 
-    "get sim id": {
-        "bind": {
-            "jr:preload": "property", 
-            "type": "string", 
-            "jr:preloadParams": "simserial"
-        }
-    }, 
-    "q location": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "geopoint"
-        }
-    }, 
-    "select one external": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "string"
-        }
-    }, 
-    "add image prompt": {
-        "control": {
-            "tag": "upload", 
-            "mediatype": "image/*"
-        }, 
-        "bind": {
-            "type": "binary"
-        }
-    }, 
-    "get end time": {
-        "bind": {
-            "jr:preload": "timestamp", 
-            "type": "dateTime", 
-            "jr:preloadParams": "end"
-        }
-    }, 
-    "barcode": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "barcode"
-        }
-    }, 
-    "q video": {
-        "control": {
-            "tag": "upload", 
-            "mediatype": "video/*"
-        }, 
-        "bind": {
-            "type": "binary"
-        }
-    }, 
-    "geopoint": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "geopoint"
-        }, 
-        "hint": "GPS coordinates can only be collected when outside."
-    }, 
-    "geoshape": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "geoshape"
-        }, 
-        "hint": "GPS coordinates can only be collected when outside."
-    }, 
-    "geotrace": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "geotrace"
-        }, 
-        "hint": "GPS coordinates can only be collected when outside."
-    }, 
-    "end time": {
-        "bind": {
-            "jr:preload": "timestamp", 
-            "type": "dateTime", 
-            "jr:preloadParams": "end"
-        }
-    }, 
-    "device id": {
-        "bind": {
-            "jr:preload": "property", 
-            "type": "string", 
-            "jr:preloadParams": "deviceid"
-        }
-    },
-    "subscriberid": {
-        "bind": {
-            "jr:preload": "property", 
-            "type": "string", 
-            "jr:preloadParams": "subscriberid"
-        }
-    }, 
-    "q barcode": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "barcode"
-        }
-    }, 
-    "image": {
-        "control": {
-            "tag": "upload", 
-            "mediatype": "image/*"
-        }, 
-        "bind": {
-            "type": "binary"
-        }
-    }, 
-    "q int": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "int"
-        }
-    }, 
-    "add text prompt": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "string"
-        }
-    }, 
-    "add date prompt": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "date"
-        }
-    }, 
-    "q calculate": {
-        "bind": {
-            "type": "string"
-        }
-    }, 
-    "start": {
-        "bind": {
-            "jr:preload": "timestamp", 
-            "type": "dateTime", 
-            "jr:preloadParams": "start"
-        }
-    }, 
     "trigger": {
         "control": {
             "tag": "trigger"
-        }
-    }, 
-    "add acknowledge prompt": {
-        "control": {
-            "tag": "trigger"
-        }, 
-        "bind": {
-            "type": "string"
         }
     }, 
     "percentage": {
@@ -481,52 +389,6 @@ QUESTION_TYPE_DICT = \
         "bind": {
             "type": "int", 
             "constraint": "0 <= . and . <= 100"
-        }
-    }, 
-    "get phone number": {
-        "bind": {
-            "jr:preload": "property", 
-            "type": "string", 
-            "jr:preloadParams": "phonenumber"
-        }
-    }, 
-    "today": {
-        "bind": {
-            "jr:preload": "date", 
-            "type": "date", 
-            "jr:preloadParams": "today"
-        }
-    }, 
-    "gps": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "geopoint"
-        }, 
-        "hint": "GPS coordinates can only be collected when outside."
-    }, 
-    "q date": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "date"
-        }
-    }, 
-    "sim id": {
-        "bind": {
-            "jr:preload": "property", 
-            "type": "string", 
-            "jr:preloadParams": "simserial"
-        }
-    }, 
-    "add decimal prompt": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "decimal"
         }
     }, 
     "number of days in last six months": {
@@ -539,81 +401,6 @@ QUESTION_TYPE_DICT = \
         }, 
         "hint": "Enter a number 0-183."
     }, 
-    "deviceid": {
-        "bind": {
-            "jr:preload": "property", 
-            "type": "string", 
-            "jr:preloadParams": "deviceid"
-        }
-    }, 
-    "int": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "int"
-        }
-    }, 
-    "add barcode prompt": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "barcode"
-        }
-    }, 
-    "q decimal": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "decimal"
-        }
-    }, 
-    "end": {
-        "bind": {
-            "jr:preload": "timestamp", 
-            "type": "dateTime", 
-            "jr:preloadParams": "end"
-        }
-    }, 
-    "add calculate prompt": {
-        "bind": {
-            "type": "string"
-        }
-    }, 
-    "add dateTime prompt": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "dateTime"
-        }
-    }, 
-    "note": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "readonly": "true()", 
-            "type": "string"
-        }
-    }, 
-    "add location prompt": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "geopoint"
-        }
-    }, 
-    "get subscriber id": {
-        "bind": {
-            "jr:preload": "property", 
-            "type": "string", 
-            "jr:preloadParams": "subscriberid"
-        }
-    }, 
     "phone number": {
         "control": {
             "tag": "input"
@@ -623,44 +410,6 @@ QUESTION_TYPE_DICT = \
             "constraint": "regex(., '^\\d*$')"
         }, 
         "hint": "Enter numbers only."
-    }, 
-    "get device id": {
-        "bind": {
-            "jr:preload": "property", 
-            "type": "string", 
-            "jr:preloadParams": "deviceid"
-        }
-    }, 
-    "add integer prompt": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "int"
-        }
-    }, 
-    "q dateTime": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "dateTime"
-        }
-    }, 
-    "date": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "date"
-        }
-    }, 
-    "start time": {
-        "bind": {
-            "jr:preload": "timestamp", 
-            "type": "dateTime", 
-            "jr:preloadParams": "start"
-        }
     }, 
     "number of days in last year": {
         "control": {
@@ -672,14 +421,6 @@ QUESTION_TYPE_DICT = \
         }, 
         "hint": "Enter a number 0-365."
     }, 
-    "date time": {
-        "control": {
-            "tag": "input"
-        }, 
-        "bind": {
-            "type": "dateTime"
-        }
-    }, 
     "time": {
         "control": {
             "tag": "input"
@@ -688,20 +429,6 @@ QUESTION_TYPE_DICT = \
             "type": "time"
         }
     }, 
-    "audio": {
-        "control": {
-            "tag": "upload", 
-            "mediatype": "audio/*"
-        }, 
-        "bind": {
-            "type": "binary"
-        }
-    }, 
-    "hidden": {
-        "bind": {
-            "type": "string"
-        }
-    },
     "uri:subscriberid": {
         "bind": {
             "jr:preload": "property", 
