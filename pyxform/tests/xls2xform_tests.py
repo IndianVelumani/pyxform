@@ -2,7 +2,10 @@
 # pyxform.create_survey. We have a test here to make sure no one
 # breaks that function.
 
+import os
+import sys
 from unittest import TestCase
+
 import pyxform
 from pyxform.xls2xform import _create_parser
 
@@ -29,8 +32,17 @@ class XLS2XFormTests(TestCase):
 
     def test_create_parser_without_args(self):
         """Should exit when no args provided."""
-        with self.assertRaises(SystemExit):
-            _create_parser().parse_args([])
+
+        # Temporarily silence `stderr`.
+        original_stderr = sys.stderr
+        
+        with open(os.devnull, 'w') as dev_null:
+            sys.stderr = dev_null
+            with self.assertRaises(SystemExit):
+                _create_parser().parse_args([])
+
+        # Restore `stdout`.
+        sys.stderr = original_stderr
 
     def test_create_parser_with_args(self):
         """Should parse the provided arguments."""
