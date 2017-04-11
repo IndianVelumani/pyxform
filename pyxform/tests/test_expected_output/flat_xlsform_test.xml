@@ -695,7 +695,7 @@
       <bind nodeset="/flat_xlsform_test/today_test_output" readonly="true()" relevant="not(selected( /flat_xlsform_test/skip_to_end , 'yes'))" type="string"/>
       <bind jr:preload="property" jr:preloadParams="deviceid" nodeset="/flat_xlsform_test/deviceid" relevant="not(selected( /flat_xlsform_test/skip_to_end , 'yes'))" type="string"/>
       <bind nodeset="/flat_xlsform_test/deviceid_test_output" readonly="true()" relevant="not(selected( /flat_xlsform_test/skip_to_end , 'yes'))" type="string"/>
-      <bind jr:preload="property" jr:preloadParams="uri:deviceid" nodeset="/flat_xlsform_test/uri_deviceid" relevant="not(selected( /flat_xlsform_test/skip_to_end , 'yes'))" type="string"/>
+      <bind jr:preload="property" jr:preloadParams="deviceid" nodeset="/flat_xlsform_test/uri_deviceid" relevant="not(selected( /flat_xlsform_test/skip_to_end , 'yes'))" type="string"/>
       <bind nodeset="/flat_xlsform_test/uri_deviceid_test_output" readonly="true()" relevant="not(selected( /flat_xlsform_test/skip_to_end , 'yes'))" type="string"/>
       <bind jr:preload="property" jr:preloadParams="simserial" nodeset="/flat_xlsform_test/simserial" relevant="not(selected( /flat_xlsform_test/skip_to_end , 'yes'))" type="string"/>
       <bind nodeset="/flat_xlsform_test/simserial_test_output" readonly="true()" relevant="not(selected( /flat_xlsform_test/skip_to_end , 'yes'))" type="string"/>

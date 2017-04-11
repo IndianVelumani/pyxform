@@ -717,7 +717,7 @@
       <bind nodeset="/xlsform_spec_test/everything/today_test_output" readonly="true()" type="string"/>
       <bind jr:preload="property" jr:preloadParams="deviceid" nodeset="/xlsform_spec_test/everything/deviceid" type="string"/>
       <bind nodeset="/xlsform_spec_test/everything/deviceid_test_output" readonly="true()" type="string"/>
-      <bind jr:preload="property" jr:preloadParams="uri:deviceid" nodeset="/xlsform_spec_test/everything/uri_deviceid" type="string"/>
+      <bind jr:preload="property" jr:preloadParams="deviceid" nodeset="/xlsform_spec_test/everything/uri_deviceid" type="string"/>
       <bind nodeset="/xlsform_spec_test/everything/uri_deviceid_test_output" readonly="true()" type="string"/>
       <bind jr:preload="property" jr:preloadParams="simserial" nodeset="/xlsform_spec_test/everything/simserial" type="string"/>
       <bind nodeset="/xlsform_spec_test/everything/simserial_test_output" readonly="true()" type="string"/>
