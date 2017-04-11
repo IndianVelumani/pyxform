@@ -1,4 +1,3 @@
-from xls2json import QuestionTypesReader, print_pyobj_to_json
 from pyxform import constants
 
 FILE_MEDIA_TYPES = ",".join([
@@ -13,18 +12,6 @@ FILE_MEDIA_TYPES = ",".join([
     "application/x-zip",
     "application/x-zip-compressed"
 ])
-
-
-def generate_new_dict():
-    """
-    This is just here incase there is ever any need to generate the question
-    type dictionary from all.xls again.
-    It shouldn't be called as part of any application.
-    """
-    path_to_question_types = "/home/nathan/aptana-workspace/pyxform"\
-        "/pyxform/question_types/all.xls"
-    json_dict = QuestionTypesReader(path_to_question_types).to_json_dict()
-    print_pyobj_to_json(json_dict, 'new_quesiton_type_dict.json')
 
 
 _SELECT_1_TYPE_DICT= {
