@@ -10,10 +10,10 @@ import unittest
 import os.path
 from tempfile import NamedTemporaryFile
 
-from .. import survey_from
 from .. import constants
 from .. import survey_to_xlsform
 from ..section import GroupedSection
+from ..survey import Survey
 
 
 class Test_SurveyToXlsForm(unittest.TestCase):
@@ -46,13 +46,13 @@ class Test_SurveyToXlsForm(unittest.TestCase):
             # Export the survey to file and re-import it.
             if export_format.lower() == 'xls':
                 original_survey.to_xls(xlsform_tempfile.name, warnings=warnings)
-                reimported_survey= survey_from.xls(xlsform_tempfile, warnings=warnings)
+                reimported_survey= Survey.from_xls(xlsform_tempfile, warnings=warnings)
             elif export_format.lower() == 'csv':
                 original_survey.to_csv(xlsform_tempfile.name, warnings=warnings)
-                reimported_survey= survey_from.csv(xlsform_tempfile, warnings=warnings)
+                reimported_survey= Survey.from_csv(xlsform_tempfile, warnings=warnings)
             elif export_format.lower() == 'xform':
                 original_survey.to_xform(xlsform_tempfile.name, warnings=warnings)
-                reimported_survey= survey_from.xform(xlsform_tempfile, warnings=warnings)
+                reimported_survey= Survey.from_xform(xlsform_tempfile, warnings=warnings)
 
             return reimported_survey
 
@@ -63,7 +63,7 @@ class Test_SurveyToXlsForm(unittest.TestCase):
 
         for xform_in_p in self.xform_in_paths:
             # Import and store the XForm.
-            xform_survey= survey_from.xform(xform_in_p)
+            xform_survey= Survey.from_xform(xform_in_p)
 
             xls_survey= self._export_and_reimport(xform_survey, 'xls')
 
@@ -81,7 +81,7 @@ class Test_SurveyToXlsForm(unittest.TestCase):
         # Get the Unicode survey's absolute path.
         unicode_survey_path= os.path.join(self.xform_directory_path, 'unicode_survey.xml')
 
-        xform_survey= survey_from.xform(unicode_survey_path)
+        xform_survey= Survey.from_xform(unicode_survey_path)
 
         # Test XLS re-import.
         xls_survey= self._export_and_reimport(xform_survey, 'xls')
@@ -119,7 +119,7 @@ class Test_SurveyToXlsForm(unittest.TestCase):
            (u'meta', u'group')]
 
         # Import the XForm then export it to XLS and re-import the XLSForm.
-        xform_survey= survey_from.xform(os.path.join(self.xform_directory_path, 'all_question_types_survey_kf2.xml'))
+        xform_survey= Survey.from_xform(os.path.join(self.xform_directory_path, 'all_question_types_survey_kf2.xml'))
         xls_survey= self._export_and_reimport(xform_survey, 'xls')
 
         for i, (xform_child, xls_child) in enumerate( zip(xform_survey['children'], xls_survey['children']) ):
@@ -157,7 +157,7 @@ class Test_SurveyToXlsForm(unittest.TestCase):
           (u'Barcode_question', u'barcode'),
           (u'Acknowledge_question', u'acknowledge')]
 
-        survey = survey_from.xform(os.path.join(self.xform_directory_path, 'all_question_types_survey_kf1.xml'))
+        survey = Survey.from_xform(os.path.join(self.xform_directory_path, 'all_question_types_survey_kf1.xml'))
         question_types_list = list()
         for q in survey['children']:
             question_types_list.append( (q['name'], q['type']) )
@@ -169,7 +169,7 @@ class Test_SurveyToXlsForm(unittest.TestCase):
         the translations can be exported to a XLSForm.
         '''
 
-        xform_survey_translated= survey_from.xform(os.path.join(self.xform_directory_path, 'all_question_types_survey_kf1_translations_inserted.xml'))
+        xform_survey_translated= Survey.from_xform(os.path.join(self.xform_directory_path, 'all_question_types_survey_kf1_translations_inserted.xml'))
         xlsform_survey_translated= self._export_and_reimport(xform_survey_translated, 'xls')
 
         for xform_child, xlsform_child in zip(xform_survey_translated['children'], xlsform_survey_translated['children']):
@@ -197,7 +197,7 @@ class Test_SurveyToXlsForm(unittest.TestCase):
         from pyxform.question import MultipleChoiceQuestion
         from pyxform.survey_to_xlsform import XlsFormExporter
 
-        survey_original= survey_from.xls(os.path.join(self.xform_directory_path, '../example_xls/new_cascading_select_xlsform.org.xlsx'))
+        survey_original= Survey.from_xls(os.path.join(self.xform_directory_path, '../example_xls/new_cascading_select_xlsform.org.xlsx'))
 
         warnings= list()
         survey_reimported= self._export_and_reimport(survey_original, 'xls', warnings)
@@ -226,29 +226,29 @@ class Test_SurveyToXlsForm(unittest.TestCase):
         '''
 
         xls_survey_path= os.path.join(self.xform_directory_path, '../example_xls/new_cascading_select_xlsform.org.xlsx')
-        xls_survey_from_path= survey_from.xls(path=xls_survey_path)
+        xls_survey_from_path= Survey.from_xls(path=xls_survey_path)
         with open(xls_survey_path) as f:
-            xls_survey_from_file_obj= survey_from.xls(filelike_obj=f)
+            xls_survey_from_file_obj= Survey.from_xls(filelike_obj=f)
         self.assertEqual(xls_survey_from_path, xls_survey_from_file_obj)
 
         csv_temp_file= NamedTemporaryFile(suffix='-pyxform.csv')
         xls_survey_from_path.to_csv(path=csv_temp_file.name)
-        csv_survey_from_path= survey_from.csv(path=csv_temp_file.name)
+        csv_survey_from_path= Survey.from_csv(path=csv_temp_file.name)
         with open(csv_temp_file.name) as f:
-            csv_survey_from_file_obj= survey_from.csv(filelike_obj=f)
+            csv_survey_from_file_obj= Survey.from_csv(filelike_obj=f)
         self.assertEqual(csv_survey_from_path, csv_survey_from_file_obj)
 
         xls_temp_file= NamedTemporaryFile(suffix='-pyxform.xls')
         xls_survey_from_path.to_xls(path=xls_temp_file.name)
-        xls_survey_reimport= survey_from.xls(path=xls_temp_file.name)
-        xls_filelike_obj= survey_from.xls(path=xls_temp_file.name).to_xls()
-        xls_survey_reimport_filelike_obj= survey_from.xls(filelike_obj=xls_filelike_obj)
+        xls_survey_reimport= Survey.from_xls(path=xls_temp_file.name)
+        xls_filelike_obj= Survey.from_xls(path=xls_temp_file.name).to_xls()
+        xls_survey_reimport_filelike_obj= Survey.from_xls(filelike_obj=xls_filelike_obj)
         # FIXME: Though these surveys generate identical output 'Survey.__eq__' does not recognize them as equal.
 #         self.assertDictEqual(xls_survey_from_path, xls_survey_reimport_filelike_obj)
         self.assertMultiLineEqual(xls_survey_reimport.to_xform().read(), xls_survey_reimport_filelike_obj.to_xform().read())
 
         csv_filelike_obj= csv_survey_from_path.to_csv()
-        csv_survey_reimport= survey_from.csv(filelike_obj=csv_filelike_obj)
+        csv_survey_reimport= Survey.from_csv(filelike_obj=csv_filelike_obj)
         self.assertEqual(csv_survey_from_path, csv_survey_reimport)
 
     def test_export_group(self):
@@ -259,8 +259,8 @@ class Test_SurveyToXlsForm(unittest.TestCase):
         warnings= list()
         survey_path= os.path.join(self.xform_directory_path, 'Simple_group_form.xml')
 
-        survey_csv_stringio= survey_from.xform(survey_path).to_csv(warnings=warnings)
-        survey_csv_reimported= survey_from.csv(filelike_obj=survey_csv_stringio)
+        survey_csv_stringio= Survey.from_xform(survey_path).to_csv(warnings=warnings)
+        survey_csv_reimported= Survey.from_csv(filelike_obj=survey_csv_stringio)
 
         # Ensure that the user is warned about the experimental nature of exporting groups.
         self.assertIn(survey_to_xlsform.GROUP_EXPORT_WARNING, warnings)
