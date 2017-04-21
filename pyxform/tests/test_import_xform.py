@@ -14,8 +14,8 @@ from __future__ import absolute_import
 import unittest
 import os.path
 
-from .. import survey_from
 from .. import xform2json
+from ..survey import Survey
 
 
 class Test_ImportXForm(unittest.TestCase):
@@ -30,7 +30,7 @@ class Test_ImportXForm(unittest.TestCase):
         xform_file_path= os.path.join(self.test_directory_path,\
                                   'example_xforms/single_select_one_survey.xml')
         
-        survey= survey_from.xform(xform_file_path)
+        survey= Survey.from_xform(xform_file_path)
         self.assertEqual(survey['title'], 'Single "select one" survey')
         self.assertEqual(survey['name'], 'single_select_one_survey')
         
@@ -59,7 +59,7 @@ class Test_ImportXForm(unittest.TestCase):
         xform_file_path= os.path.join(self.test_directory_path,\
                                   'example_xforms/single_select_many_survey.xml')
         
-        survey= survey_from.xform(xform_file_path)
+        survey= Survey.from_xform(xform_file_path)
         self.assertEqual(survey['title'], 'Single "Select Many" Survey')
         self.assertEqual(survey['name'], 'single_select_many_survey')
         
@@ -88,7 +88,7 @@ class Test_ImportXForm(unittest.TestCase):
         xform_file_path= os.path.join(self.test_directory_path,\
                             'example_xforms/multiple_select_question_survey.xml')
         
-        survey= survey_from.xform(xform_file_path)
+        survey= Survey.from_xform(xform_file_path)
         self.assertEqual(survey['title'], 'Multiple "Select" Question Survey.')
         self.assertEqual(survey['name'], 'multiple_select_question_survey')
         
@@ -128,15 +128,15 @@ class Test_ImportXForm(unittest.TestCase):
         survey_path= os.path.join(self.test_directory_path, \
           'example_xforms/all_question_types_survey_kf1.xml')
         
-        survey_from_path= survey_from.xform(survey_path)
+        survey_from_path= Survey.from_xform(survey_path)
         
         with open(survey_path) as f:
-            survey_from_file_obj= survey_from.xform(filelike_obj=f)
+            survey_from_file_obj= Survey.from_xform(filelike_obj=f)
         
         self.assertEqual(survey_from_file_obj, survey_from_path)
         
         survey_filelike_obj= survey_from_path.to_xform()
-        survey_reimport= survey_from.xform(filelike_obj=survey_filelike_obj)
+        survey_reimport= Survey.from_xform(filelike_obj=survey_filelike_obj)
         # FIXME: Though these surveys generate identical output 'Survey.__eq__' does not recognize them as equal. 
 #         self.assertEqual(survey_from_path, survey_reimport)
         self.assertMultiLineEqual(survey_from_path.to_xform().read(), survey_reimport.to_xform().read())
@@ -151,7 +151,7 @@ class Test_ImportXForm(unittest.TestCase):
         survey_path= os.path.join(self.test_directory_path, \
           'example_xforms/all_question_types_survey_kf1.xml')
         warnings= list()
-        survey_from.xform(survey_path, warnings=warnings)
+        Survey.from_xform(survey_path, warnings=warnings)
         
         self.assertIn(xform2json.XFORM_IMPORT_WARNING, warnings)
         self.assertIn(xform2json.NONCONFORMANCE_WARNING, warnings)

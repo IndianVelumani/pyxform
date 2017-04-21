@@ -1,9 +1,9 @@
-import cStringIO
+import StringIO
 import tempfile
 from unittest2 import TestCase
 
 import utils
-import pyxform.survey_from
+from ..survey import Survey
 from pyxform.builder import create_survey_from_path
 
 
@@ -41,7 +41,7 @@ class Test_DumpAndLoadXForm2Json(TestCase):
         for survey in self.surveys:
             with tempfile.NamedTemporaryFile(suffix='-pyxform.json') as temp_file:
                 survey.json_dump(temp_file.name)    # What is this line for?
-            filey_xml_dump= cStringIO.StringIO(survey.to_xml().encode('UTF-8'))
-            survey_from_dump = pyxform.survey_from.xform(filelike_obj=filey_xml_dump)
+            xml_dump_io= StringIO.StringIO(survey.to_xml().encode('UTF-8'))
+            survey_from_dump = Survey.from_xform(filelike_obj=xml_dump_io)
             self.assertMultiLineEqual(
                 survey.to_xml(), survey_from_dump.to_xml())
