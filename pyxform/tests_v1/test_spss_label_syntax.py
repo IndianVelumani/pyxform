@@ -66,7 +66,7 @@ class TestSpssLabelSyntax(PyxformTestCase):
             question_name_transform=get_spss_variable_name)
 
     @staticmethod
-    def _variable_label_syntax_to_mappings(syntax):
+    def _label_syntax_to_variable_labels(syntax):
         '''
         Parse variable label mappings from a SPSS syntax file's "VARIABLE LABELS" section.
 
@@ -153,7 +153,7 @@ class TestSpssLabelSyntax(PyxformTestCase):
 
             syntax = spss_label_syntaxes[language]
 
-            variable_labels = self._variable_label_syntax_to_mappings(syntax)
+            variable_labels = self._label_syntax_to_variable_labels(syntax)
             expected_variable_labels = expected_labels[language][VARIABLE_LABELS_DICT_KEY]
             # Dictionary comparisons give better feedback on content mismatches.
             self.assertDictEqual(dict(variable_labels), dict(expected_variable_labels))
