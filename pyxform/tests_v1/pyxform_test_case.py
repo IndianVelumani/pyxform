@@ -108,9 +108,10 @@ class PyxformTestCase(TestCase):
         if survey == False and expecting_invalid_survey == False:
             raise PyxformTestError("Expected valid survey but compilation failed. Try correcting the error with 'debug=True', setting 'errored=True', and or optionally 'error__contains=[...]'")
 
-    def md_to_pyxform_survey(self, md_raw, kwargs={}, autoname=True):
+    @classmethod
+    def md_to_pyxform_survey(cls, md_raw, kwargs={}, autoname=True):
         if autoname:
-            kwargs = self._autonameInputs(kwargs)
+            kwargs = cls._autonameInputs(kwargs)
         _md = []
         for line in md_raw.split('\n'):
             if re.match(r'^\s+\#', line):
@@ -139,9 +140,10 @@ class PyxformTestCase(TestCase):
         sheets = {}
         for sheet, contents in md_table_to_ss_structure(md):
             sheets[sheet] = list_to_dicts(contents)
-        return self._ss_structure_to_pyxform_survey(sheets, kwargs)
+        return cls._ss_structure_to_pyxform_survey(sheets, kwargs)
 
-    def _ss_structure_to_pyxform_survey(self, ss_structure, kwargs):
+    @staticmethod
+    def _ss_structure_to_pyxform_survey(ss_structure, kwargs):
         # using existing methods from the builder
         imported_survey_json = workbook_to_json(ss_structure)
         # ieadlly, when all these tests are working, this would be
@@ -192,7 +194,8 @@ class PyxformTestCase(TestCase):
         self.assertEqual(real_count, 0,
                 msg_prefix + "Response should not contain %s" % text_repr)
 
-    def _autonameInputs(self, kwargs):
+    @staticmethod
+    def _autonameInputs(kwargs):
         '''
         title and name are necessary for surveys, but not always convenient to
         include in test cases, so this will pull a default value from the stack trace.

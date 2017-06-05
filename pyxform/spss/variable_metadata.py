@@ -15,6 +15,8 @@ from .utilities import get_spss_variable_label
 from .utilities import get_spss_value_label
 
 INDENT_STRING= '    '
+VALUE_LABELS = 'VALUE_LABELS'
+VARIABLE_LABELS = 'VARIABLE_LABELS'
 
 class ValueLabel:
 
@@ -133,14 +135,14 @@ class VariableMetadata(namedtuple('_VariableMetadata', 'name, label, value_mappi
         if value_label_lines:
             value_label_lines[0]= value_label_lines[0].replace('/ ', '', 1)
 
-        syntax_string= 'VARIABLE LABELS'
+        syntax_string= VARIABLE_LABELS
         for var_label_line in variable_label_lines:
             syntax_string+= '\n' + var_label_line
         syntax_string+= '.\n'
 
         # There aren't always value labels to report.
         if len(value_label_lines) != 0:
-            syntax_string+= '\nVALUE LABELS'
+            syntax_string+= '\n' + VALUE_LABELS
             for val_label_line in value_label_lines:
                 syntax_string+= '\n' + val_label_line
             syntax_string+= '.\n'
