@@ -146,11 +146,10 @@ class TestSpssLabelSyntax(PyxformTestCase):
         if expected_labels is None:
             expected_labels = self.labels
 
-        languages= spss_label_syntaxes.keys()
+        languages = spss_label_syntaxes.keys()
+        self.assertSetEqual(set(languages), set(expected_labels.iterkeys()))
 
         for language in languages:
-            self.assertSetEqual(set(languages), set(expected_labels.iterkeys()))
-
             syntax = spss_label_syntaxes[language]
 
             variable_labels = self._label_syntax_to_variable_labels(syntax)
