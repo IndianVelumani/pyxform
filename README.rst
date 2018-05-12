@@ -1,11 +1,28 @@
 🛑 No further development!
 =========================
 This fork will not receive further development.
-Please refer to https://github.com/xlsform/Pyxform
+Please refer to https://github.com/xlsform/Pyxform. Do not open issues or make pull requests on this repository.
 
+☝
+=
 
+☝
+=
 
+☝
+=
 
+☝
+=
+
+☝
+=
+
+☝
+=
+
+☝
+=
 
 ============
 pyxform v0.9
