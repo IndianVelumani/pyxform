@@ -17,7 +17,7 @@ setup(
     long_description=open('README.rst', 'rt').read(),
     install_requires=[
         'xlrd==1.1.0',
-        'lxml==4.1.1',
+        'lxml~=4.1',
         'xlwt',
     ],
 )
